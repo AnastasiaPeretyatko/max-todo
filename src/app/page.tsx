@@ -1,95 +1,82 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client"
+
+import Header from "@/components/Header";
+import MenuContainer from "@/components/MenuContainer";
+import TaskContainer from "@/components/TaskContainer";
+import { Flex, Heading, HStack, Text, VStack } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+
+
+export type ListType = {
+  id: number,
+  title: string,
+  isCompleted: boolean
+}
 
 export default function Home() {
+  const [list, setList] = useState<ListType[]>([])
+  const [isActive, setIsActive] = useState<string>('')
+  const [isAllChecked, setIsAllChecked] = useState<boolean>(false)
+
+  const addTask = () => {
+    const task: ListType = {
+      id: Date.now(),
+      title: isActive,
+      isCompleted: false
+    }
+    setList(prev => [...prev, task])
+    setIsActive('')
+  }
+
+  const deleteTask = (id: number) => {
+    const array = list.filter(item => item.id !== id)
+    setList(array)
+  }
+
+  const deleteAllOnClick = () => {
+    setList([])
+  }
+
+  const handleChangeChecked = (id: number) => {
+    const tasks = list.map(task => task.id === id
+      ? { ...task, isCompleted: !task.isCompleted }
+      : task
+    )
+
+    setList(tasks)
+  }
+
+  useEffect(() => {
+    const tasks = list.map(task => ({... task, isCompleted: isAllChecked}))
+    setList(tasks)
+  }, [isAllChecked])
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <>
+      <HStack
+        width={"100%"}
+        height={"100%"}
+        alignItems={"center"}
+        justify={"center"}
+        gap={"163px"}
+      >
+        <Flex>
+          <Heading fontSize={"96px"}>
+            To-Do
+            <Text as="span" color="PRIMARY_PURPLE">
+              UI
+            </Text>
+          </Heading>
+        </Flex>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+        <VStack width={"672px"} gap={"31px"}>
+          <Header />
+          <HStack gap={'21px'} alignItems={'flex-start'}>
+            <MenuContainer/>
+            <TaskContainer/>
+          </HStack>
+        </VStack>
+      </HStack>
+    </>
   );
 }
