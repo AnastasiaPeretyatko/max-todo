@@ -1,6 +1,7 @@
 // theme.ts (Version 2 needs to be a tsx file, due to usage of StyleFunctions)
 import { background, extendTheme } from '@chakra-ui/react'
 import { color } from 'framer-motion'
+import { buttonTheme } from './components/button'
 
 // Version 1: Using objects
 const theme = extendTheme({
@@ -19,7 +20,8 @@ const theme = extendTheme({
     PRIMARY_PURPLE: '#9333ea',
     MENU_GRAY: '#6b7280',
     TASK_CONTAINER: '#f4f4f4',
-  }
+  },
+  components: { Button: buttonTheme }
 })
 
 export default theme

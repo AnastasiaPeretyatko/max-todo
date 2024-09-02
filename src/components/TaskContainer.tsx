@@ -1,8 +1,9 @@
 import { VStack } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import TaskItem from "./TaskItem";
+import { ListType } from '@/app/page';
 
-const TaskContainer = () => {
+const TaskContainer = ({ deleteTask, list, handleChangeChecked }: { deleteTask: (id: number) => void, list: ListType[], handleChangeChecked: (id: number) => void }) => {
   return (
     <VStack
       bg="TASK_CONTAINER"
@@ -15,7 +16,7 @@ const TaskContainer = () => {
       height={"312px"}
     >
       {
-        list.map((item) => 
+        list.map((item) =>
           <TaskItem
             key={item.id}
             task={item}

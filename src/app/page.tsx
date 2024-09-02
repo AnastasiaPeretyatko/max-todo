@@ -15,17 +15,17 @@ export type ListType = {
 
 export default function Home() {
   const [list, setList] = useState<ListType[]>([])
-  const [isActive, setIsActive] = useState<string>('')
+  // const [isActive, setIsActive] = useState<string>('')
   const [isAllChecked, setIsAllChecked] = useState<boolean>(false)
 
-  const addTask = () => {
+  const addTask = (title: string) => {
     const task: ListType = {
       id: Date.now(),
-      title: isActive,
-      isCompleted: false
+      title: title,
+      isCompleted: false,
     }
     setList(prev => [...prev, task])
-    setIsActive('')
+    // setIsActive('')
   }
 
   const deleteTask = (id: number) => {
@@ -47,7 +47,7 @@ export default function Home() {
   }
 
   useEffect(() => {
-    const tasks = list.map(task => ({... task, isCompleted: isAllChecked}))
+    const tasks = list.map(task => ({ ...task, isCompleted: isAllChecked }))
     setList(tasks)
   }, [isAllChecked])
 
@@ -72,8 +72,12 @@ export default function Home() {
         <VStack width={"672px"} gap={"31px"}>
           <Header />
           <HStack gap={'21px'} alignItems={'flex-start'}>
-            <MenuContainer/>
-            <TaskContainer/>
+            <MenuContainer addTask={addTask} />
+            <TaskContainer
+              deleteTask={deleteTask}
+              list={list}
+              handleChangeChecked={handleChangeChecked}
+            />
           </HStack>
         </VStack>
       </HStack>

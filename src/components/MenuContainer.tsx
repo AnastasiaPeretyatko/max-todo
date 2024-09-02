@@ -12,7 +12,7 @@ import CheckGrayIcon from "./CheckGrayIcon";
 import ArrowsMenuIcon from "./ArrowsMenuIcon";
 import CreateTaskModal from "./CreateTaskModal";
 
-const MenuContainer = () => {
+const MenuContainer = ({addTask}: {addTask: (title: string) => void}) => {
   return (
     <>
       <VStack justifyContent={'flex-start'} height={'100%'} paddingTop={'5px'}>
@@ -44,7 +44,7 @@ const MenuContainer = () => {
             color: "PRIMARY_PURPLE",
           }}
           _active={{
-            bg: "rgba(147, 51, 234, 0.06);",
+            bg: "rgba(38, 17, 58, 0.06);",
             color: "PRIMARY_PURPLE",
           }}
 
@@ -79,7 +79,7 @@ const MenuContainer = () => {
             minW={"0"}
             borderRadius="10px"
             border={"none"}
-            bg="rgba(147, 51, 234, 0.06);"
+            bg="rgba(147, 51, 234)"
             shadow={"none"}
           >
             <MenuItem
@@ -153,7 +153,7 @@ const MenuContainer = () => {
           Date
         </Button>
 
-<CreateTaskModal/>
+<CreateTaskModal addTask={addTask}/>
 
       </VStack>
     </>

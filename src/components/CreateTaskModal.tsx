@@ -11,12 +11,19 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
-import addTask from '@/components/TaskContainer';
 
-const CreateTaskModal = () => {
+const CreateTaskModal = ({ addTask }: { addTask: (title: string) => void }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const initialRef = React.useRef(null);
+  const initialRef = React.useRef<HTMLInputElement>(null);
   const finalRef = React.useRef(null);
+
+  const onChangeInput = () => {
+    if (initialRef.current) {
+      addTask(initialRef.current.value)
+      onClose()
+    }
+  }
+
 
   return (
     <>
@@ -63,9 +70,10 @@ const CreateTaskModal = () => {
         finalFocusRef={finalRef}
         isOpen={isOpen}
         onClose={onClose}
+        isCentered
       >
         <ModalOverlay borderRadius={"10px"} />
-        <ModalContent borderRadius={"10px"}>
+        <ModalContent borderRadius={"10px"} >
           <ModalHeader
             height="48px"
             paddingY="14px"
@@ -125,7 +133,7 @@ const CreateTaskModal = () => {
                   />
                 </svg>
               }
-              onClick={addTask} //TODO функция добавления в массив
+              onClick={onChangeInput} //TODO функция добавления в массив
             >
               Save
             </Button>

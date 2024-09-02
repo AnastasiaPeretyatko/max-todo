@@ -1,8 +1,8 @@
-import React from "react";
-import { Button, Checkbox, Flex, HStack, Icon } from "@chakra-ui/react";
+import { Button, Checkbox, HStack, IconButton } from "@chakra-ui/react";
 import AlertDialogComponent from "./AlertDialogComponent";
-import CheckGrayIcon from "./CheckGrayIcon";
-import { ListType } from "./TaskContainer";
+import { ListType } from '@/app/page';
+import { useState } from 'react';
+import { CheckIcon } from '@chakra-ui/icons';
 
 type Props = {
   task: ListType
@@ -11,6 +11,11 @@ type Props = {
 }
 
 const TaskItem = ({ task, handleChangeChecked, deleteTask }: Props) => {
+  const [isActive, setIsActive] = useState(task.isCompleted)
+  const onClickDelete = () => {
+    deleteTask(task.id)
+  }
+
   return (
     <HStack
       display="flex"
@@ -24,15 +29,26 @@ const TaskItem = ({ task, handleChangeChecked, deleteTask }: Props) => {
       bg="rgba(147, 51, 234, 0.06);"
     >
       //TODO Сделать кастомный чекбокс
-      <Checkbox checked={task.isCompleted}
-                onChange={() => handleChangeChecked(task.id)}
-            />
+      <Button
+        variant="unstyled"
+        border="1px solid"
+        borderColor="PRIMARY_PURPLE"
+        onClick={() => {handleChangeChecked(task.id)
+          setIsActive(!isActive)
+        }}
+      >
+        {isActive ? <CheckIcon /> : null}
+      </Button>
+
+      {/* <Checkbox checked={task.isCompleted}
+        onChange={() => handleChangeChecked(task.id)}
+      /> */}
 
       <p style={{ flex: "1" }}>{task.title}</p>
 
       <p>Date</p>      //TODO Сделать дату
 
-      <AlertDialogComponent/> //TODO добавить удаление в компонент
+      <AlertDialogComponent onClickDelete={onClickDelete} /> //TODO добавить удаление в компонент
     </HStack>
   );
 };
