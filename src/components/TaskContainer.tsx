@@ -14,6 +14,8 @@ const TaskContainer = ({ deleteTask, list, handleChangeChecked }: { deleteTask: 
       gap={"7px"}
       width={"466px"}
       height={"312px"}
+      overflow={"auto"}
+      overflowX={"hidden"}
     >
       {
         list.map((item) =>
