@@ -19,8 +19,10 @@ const CreateTaskModal = ({ addTask }: { addTask: (title: string) => void }) => {
 
   const onChangeInput = () => {
     if (initialRef.current) {
-      addTask(initialRef.current.value)
-      onClose()
+      if (initialRef.current.value !== ''){
+        addTask(initialRef.current.value)
+        onClose()
+      }
     }
   }
 
