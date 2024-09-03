@@ -1,4 +1,4 @@
-import { DeleteIcon, SmallCloseIcon } from '@chakra-ui/icons';
+import { DeleteIcon, SmallCloseIcon } from "@chakra-ui/icons";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -12,13 +12,31 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 
-const AlertDialogComponent = ({ onClickDelete }: { onClickDelete: () => void }) => {
+const AlertDialogComponent = ({
+  onClickDelete,
+}: {
+  onClickDelete: () => void;
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef(null);
 
   return (
     <>
-      <IconButton aria-label='delete task' icon={<DeleteIcon />} onClick={onOpen} />
+      <IconButton
+        aria-label="delete task"
+        icon={<DeleteIcon />}
+        onClick={onOpen}
+        minW={0}
+        minH={0}
+        h={5}
+        color={"#f56497"}
+        bg={"none"}
+
+        border={"none"}
+        _hover={{
+          bg: "none",
+        }}
+      />
 
       <AlertDialog
         isOpen={isOpen}
@@ -52,16 +70,14 @@ const AlertDialogComponent = ({ onClickDelete }: { onClickDelete: () => void }) 
             <AlertDialogFooter pb="17px" pt="0" gap={"21px"}>
               <Button
                 leftIcon={<DeleteIcon />}
-                variant='primary'
+                variant="primary"
                 onClick={onClickDelete} //TODO Функция удаления элемента
               >
                 Delete
               </Button>
 
               <Button
-                leftIcon={
-                  <SmallCloseIcon />
-                }
+                leftIcon={<SmallCloseIcon />}
                 paddingY={"8px"}
                 paddingX={"55px"}
                 ref={cancelRef}
