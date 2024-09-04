@@ -70,12 +70,12 @@ const TaskItem = ({ task, handleChangeChecked, deleteTask }: Props) => {
     <HStack
       display="flex"
       flexDirection="row"
-      gap="15px"
+      gap="4"
       alignItems="center"
       width="100%"
-      paddingY="8px"
-      paddingX="11px"
-      borderRadius="10px"
+      paddingY="2"
+      paddingX="3"
+      borderRadius="3"
       bg="rgba(147, 51, 234, 0.06);"
     >
       //TODO Сделать кастомный чекбокс
