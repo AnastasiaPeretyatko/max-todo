@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import TaskItem from "./TaskItem";
 import { ListType } from '@/app/page';
 
-const TaskContainer = ({ deleteTask, list, handleChangeChecked }: { deleteTask: (id: number) => void, list: ListType[], handleChangeChecked: (id: number) => void }) => {
+const TaskContainer = ({ deleteTask, list, handleChangeChecked, changeTaskTitle}: { changeTaskTitle: ((newTitle: string ,id: number) => void), deleteTask: (id: number) => void, list: ListType[], handleChangeChecked: (id: number) => void }) => {
   return (
     <VStack
       bg="TASK_CONTAINER"
@@ -24,6 +24,7 @@ const TaskContainer = ({ deleteTask, list, handleChangeChecked }: { deleteTask: 
             task={item}
             handleChangeChecked={handleChangeChecked}
             deleteTask={deleteTask}
+            changeTaskTitle={changeTaskTitle}
           />
         )
       }

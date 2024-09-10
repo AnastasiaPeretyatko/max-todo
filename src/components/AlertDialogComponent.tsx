@@ -42,6 +42,7 @@ const AlertDialogComponent = ({
         isOpen={isOpen}
         leastDestructiveRef={cancelRef}
         onClose={onClose}
+        isCentered
       >
         <AlertDialogOverlay borderRadius="10px">
           <AlertDialogContent borderRadius="10px">

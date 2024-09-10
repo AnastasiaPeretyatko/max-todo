@@ -1,22 +1,27 @@
+import { ListType } from "@/app/page";
 import { EditIcon } from "@chakra-ui/icons";
-import { Button, FormControl, IconButton, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from "@chakra-ui/react";
+import { Button, FormControl, IconButton, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, TabList, useDisclosure } from "@chakra-ui/react";
 import React from "react";
 
-const ChangeDateModal = () => {
-  // //const CreateTaskModal = ({ addTask }: { addTask: (title: string) => void }) => {
+type Props = {
+  task: ListType;
+  changeTaskTitle:(newTitle: string, id: number)=> void;
+};
+
+const ChangeTitleModal = ({ task, changeTaskTitle }: Props) => {
 
      const { isOpen, onOpen, onClose } = useDisclosure();
      const initialRef = React.useRef<HTMLInputElement>(null);
      const finalRef = React.useRef(null);
 
-  //     // const onChangeInput = () => {
-  //     //   if (initialRef.current) {
-  //     //     if (initialRef.current.value !== ''){
-  //     //       addTask(initialRef.current.value)
-  //     //       onClose()
-  //     //     }
-  //     //   }
-  //     // }
+     const onChangeInput = () => {
+      if (initialRef.current) {
+        if (initialRef.current.value !== ''){
+          changeTaskTitle(initialRef.current.value, task.id)
+          onClose()
+        }
+      }
+    }
 
   return (
     <>
@@ -54,18 +59,20 @@ const ChangeDateModal = () => {
             color="PRIMARY_PURPLE"
             bg="linear-gradient(220deg, #f5edfd 0%, #feeff5 100%)"
           >
-            Change task date
+            Change task title
           </ModalHeader>
 
           <ModalBody pt="25px" pb={"22px"}>
             <FormControl>
               <Input
-                type='Date'
+                type='text'
                 borderRadius="10px"
                 bg="#f3f3f3"
                 width="388px"
                 height="27px"
                 ref={initialRef}
+                placeholder={task.title}
+
               />
             </FormControl>
           </ModalBody>
@@ -102,7 +109,8 @@ const ChangeDateModal = () => {
                   />
                 </svg>
               }
-              //onClick={onChangeInput} //TODO функция изменения даты
+              onClick={onChangeInput} //TODO функция изменения даты
+              
             >
               Save
             </Button>
@@ -139,4 +147,4 @@ const ChangeDateModal = () => {
   );
 };
 
-export default ChangeDateModal;
+export default ChangeTitleModal;

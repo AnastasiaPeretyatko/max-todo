@@ -46,6 +46,15 @@ export default function Home() {
     setList(tasks)
   }
 
+  const changeTaskTitle = (newTitle: string ,id: number) => {
+    const tasks = list.map(task => task.id === id
+      ? { ...task, title: newTitle }
+      : task
+    )
+
+    setList(tasks)
+  }
+
   useEffect(() => {
     const tasks = list.map(task => ({ ...task, isCompleted: isAllChecked }))
     setList(tasks)
@@ -77,6 +86,7 @@ export default function Home() {
               deleteTask={deleteTask}
               list={list}
               handleChangeChecked={handleChangeChecked}
+              changeTaskTitle={changeTaskTitle}
             />
           </HStack>
         </VStack>

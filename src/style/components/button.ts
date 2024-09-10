@@ -11,6 +11,10 @@ const primary = defineStyle({
 	}
 })
 
+const btnSecondary = defineStyle({
+	
+})
+
 export const buttonTheme = defineStyleConfig({
 	variants: { primary },
 })
